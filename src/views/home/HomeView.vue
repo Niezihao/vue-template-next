@@ -18,13 +18,6 @@
       >
         <!-- <i class="fa fa-book mr-2"></i>真题浏览应用 -->
       </h1>
-      <p class="text-gray-600 dark:text-gray-300">
-        按
-        <kbd class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm dark:text-gray-200"
-          >Enter</kbd
-        >
-        键查看下一题
-      </p>
     </header>
 
     <!-- 题目卡片 -->
@@ -55,7 +48,7 @@
         <div
           v-for="(option, index) in questionData[currentIndex]?.options"
           :key="index"
-          class="flex items-start p-3 border-2 rounded-lg transition-all cursor-pointer dark:border-gray-600 dark:hover:bg-gray-700/50"
+          class="flex items-start p-3 border-2 rounded-lg transition-all cursor-pointer hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700/50"
           :class="{
             'border-green-500 dark:border-green-400':
               showAnswers && questionData[currentIndex]?.correctAnswer?.includes(index),
@@ -108,7 +101,7 @@
                 @click="showAnswerSheet = false"
                 class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
               >
-                <i class="fa fa-times text-gray-500 dark:text-gray-400"></i>
+                <span class="text-gray-600 dark:text-gray-300 text-xl">×</span>
               </button>
             </div>
 

@@ -49,7 +49,7 @@
           class="p-2 text-gray-500 hover:text-blue-500 transition-colors"
           @click="$emit('show-hint')"
         >
-          <i class="fa fa-lightbulb-o"></i>
+          <span class="text-lg">💡</span>
         </button>
       </div>
 

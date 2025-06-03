@@ -93,6 +93,7 @@
 .dark button {
   color: var(--text-primary);
   border-color: rgba(100, 255, 218, 0.2); /* 半透明主色边框 */
+  background-color: rgba(100, 255, 218, 0.15);
 }
 
 .dark button:hover {

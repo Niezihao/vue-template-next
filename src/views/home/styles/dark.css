@@ -1,0 +1,112 @@
+/* 暗黑主题颜色变量 */
+:root.dark {
+  --primary: #64ffda; /* 主色（青蓝色） */
+  --bg-primary: #1a1a1a; /* 主背景 */
+  --bg-secondary: #272727; /* 二级背景 */
+  --text-primary: #ffffff; /* 主文本色 */
+  --text-secondary: #d1d1d1; /* 次文本色 */
+  --border-color: #3a3a3a; /* 边框色 */
+  --hover-bg: #333333; /* 悬停背景 */
+  --correct-color: #4ade80; /* 正确答案颜色 */
+  --wrong-color: #f87171; /* 错误答案颜色 */
+  --hint-bg: #0e0e0e; /* 提示背景 */
+}
+
+/* 暗黑主题基础样式 */
+.dark {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dark .text-primary {
+  color: var(--text-primary);
+}
+
+.dark .text-secondary {
+  color: var(--text-secondary);
+}
+
+.dark .bg-gray-100 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dark .border-gray-200 {
+  border-color: var(--border-color) !important;
+}
+
+/* 头部样式调整 */
+.dark header {
+  color: var(--text-primary);
+}
+
+.dark .text-shadow {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 暗黑主题下的文本阴影 */
+}
+
+/* 题目卡片样式 */
+.dark .question-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* 深色卡片阴影 */
+}
+
+/* 选项区域样式 */
+.dark .flex.items-start.p-3 {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.dark .flex.items-start.p-3:hover {
+  background-color: var(--hover-bg);
+}
+
+/* 正确答案样式（暗黑主题） */
+.dark .border-green-500 {
+  border-color: var(--correct-color) !important;
+  box-shadow: 0 0 4px rgba(74, 222, 128, 0.5); /* 正确答案发光效果 */
+}
+
+/* 错误答案样式（暗黑主题） */
+.dark .border-red-500 {
+  border-color: var(--wrong-color) !important;
+  box-shadow: 0 0 4px rgba(248, 113, 113, 0.5); /* 错误答案发光效果 */
+}
+
+/* 选中状态样式 */
+.dark .bg-blue-50 {
+  background-color: rgba(100, 255, 218, 0.1) !important; /* 主色半透明背景 */
+}
+
+/* 解析区域样式 */
+.dark .bg-green-50 {
+  background-color: var(--hint-bg) !important;
+  border-color: var(--correct-color);
+  color: var(--text-secondary);
+}
+
+.dark .text-green-600 {
+  color: var(--text-secondary) !important;
+}
+
+/* 按钮样式调整 */
+.dark button {
+  color: var(--text-primary);
+  border-color: rgba(100, 255, 218, 0.2); /* 半透明主色边框 */
+}
+
+.dark button:hover {
+  background-color: rgba(100, 255, 218, 0.05); /* 主色悬停背景 */
+}
+
+.dark .fa-eye,
+.dark .fa-eye-slash {
+  color: var(--text-secondary);
+}
+
+/* 键盘按键样式 */
+.dark kbd {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}

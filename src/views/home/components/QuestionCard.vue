@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'bg-white rounded-xl shadow-md p-6 mb-8 transform transition-all duration-500 card-hover',
+      'rounded-xl shadow-md p-6 mb-8 transform transition-all duration-500 card-hover',
       { 'scale-95 opacity-70': isTransitioning },
     ]"
   >

@@ -9,7 +9,7 @@
         按 <kbd class="px-2 py-1 bg-gray-100 rounded text-sm">Enter</kbd> 键查看下一题
       </p>
     </header>
-
+    {{ selectedAnswers[questionData[currentIndex]?.id] }}
     <!-- 题目卡片 -->
     <question-card
       :question="questionData[currentIndex]"
@@ -21,16 +21,54 @@
       @toggle-mark="toggleMark"
       @show-hint="showHint"
     >
+      <template #header-extra>
+        <button
+          @click="showAnswers = !showAnswers"
+          class="flex items-center px-3 py-1.5 space-x-2 text-sm rounded-full border border-primary/20 hover:bg-primary/5 transition-colors"
+        >
+          <i class="fa" :class="showAnswers ? 'fa-eye-slash' : 'fa-eye'"></i>
+          <span class="text-primary/80">{{ showAnswers ? '隐藏答案' : '显示解析' }}</span>
+        </button>
+      </template>
       <!-- 选项区域插槽 -->
       <template v-slot:options>
         <div
           v-for="(option, index) in questionData[currentIndex]?.options"
           :key="index"
-          class="flex items-start p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          class="flex items-start p-3 border-2 rounded-lg transition-all cursor-pointer"
+          :class="{
+            // 正确答案高亮（当显示答案时始终显示）
+            'border-green-500':
+              showAnswers && questionData[currentIndex]?.correctAnswer?.includes(index),
+            // 错误答案高亮（选中错误答案时显示）
+            'border-red-500':
+              showAnswers &&
+              selectedAnswers[questionData[currentIndex]?.id]?.includes(index) &&
+              !questionData[currentIndex]?.correctAnswer?.includes(index),
+            // 选中状态样式
+            'bg-blue-50 scale-95': selectedAnswers[questionData[currentIndex]?.id]?.includes(index),
+            // 默认边框颜色
+            'border-gray-200':
+              !showAnswers || !questionData[currentIndex]?.correctAnswer?.includes(index),
+          }"
+          @click="selectAnswer(questionData[currentIndex]?.id, index)"
         >
-          <option-marker :index="index" />
-          <p>{{ option }}</p>
+          <p class="ml-2">{{ option }}</p>
         </div>
+        <transition name="fade">
+          <div
+            v-if="showAnswers"
+            class="mt-4 p-4 bg-green-50 border-l-4 border-green-500 text-sm rounded-lg"
+          >
+            <div class="flex items-center text-green-700 font-medium">
+              <i class="fa fa-lightbulb mr-2"></i>
+              题目解析：
+            </div>
+            <p class="mt-2 text-green-600">
+              {{ questionData[currentIndex]?.analysis }}
+            </p>
+          </div>
+        </transition>
       </template>
     </question-card>
 
@@ -49,7 +87,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useQuestions } from './composables/useQuestions'
 import { useNavigation } from './composables/useNavigation'
 import QuestionCard from './components/QuestionCard.vue'
-import OptionMarker from './components/OptionMarker.vue'
 
 const { questionData, totalQuestions } = useQuestions()
 const {
@@ -83,23 +120,26 @@ onMounted(() => document.addEventListener('keydown', handleKeydown))
 onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 
 // 新增答案选择逻辑
-const selectedAnswers = ref<{ [key: string]: number | number[] }>({})
+const selectedAnswers = ref<{ [key: string]: number[] }>({})
 
+// 新增显示答案状态
+const showAnswers = ref(false)
+
+// 修改后的选择逻辑
 const selectAnswer = (questionId: string, optionIndex: number) => {
   const question = questionData.value.find((q) => q.id === questionId)
   if (!question) return
 
-  // 根据题目类型处理选择逻辑
+  // 存储为数组格式保持一致性
   if (question.type === 'single-choice') {
-    selectedAnswers.value[questionId] = optionIndex
-  } else if (question.type === 'multiple-choice') {
+    selectedAnswers.value[questionId] = [optionIndex]
+  } else {
     const current = (selectedAnswers.value[questionId] as number[]) || []
     selectedAnswers.value[questionId] = current.includes(optionIndex)
       ? current.filter((i) => i !== optionIndex)
       : [...current, optionIndex]
   }
 
-  // 实时保存到本地存储
   localStorage.setItem('userAnswers', JSON.stringify(selectedAnswers.value))
 }
 </script>

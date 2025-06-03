@@ -20,7 +20,11 @@ export function useAnswerSelection() {
     } else if (question.type === 'multiple-choice') {
       const current = selectedAnswers.value[question.id] as number[]
       const index = current.indexOf(optionIndex)
-      index === -1 ? current.push(optionIndex) : current.splice(index, 1)
+      if (index === -1) {
+        current.push(optionIndex)
+      } else {
+        current.splice(index, 1)
+      }
     }
 
     // 持久化存储

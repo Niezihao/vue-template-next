@@ -7,8 +7,11 @@
   >
     <!-- 题目头部 -->
     <div class="flex justify-between items-center mb-4">
-      <span class="text-primary font-bold text-lg"> 题目 ID: {{ question?.id || '加载中' }} </span>
-      <span class="text-gray-500 text-sm">{{ index + 1 }}/{{ total }}</span>
+      <span class="text-primary font-bold text-lg">题目 ID: {{ question?.id || '加载中' }}</span>
+      <div class="flex items-center space-x-4">
+        <slot name="header-extra"></slot>
+        <span class="text-gray-500 text-sm">{{ index + 1 }}/{{ total }}</span>
+      </div>
     </div>
 
     <!-- 题目内容 -->
